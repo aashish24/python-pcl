@@ -149,7 +149,8 @@ cdef class PointCloud:
         while i < npts:
             self.thisptr.at(i).x = arr[i,0]
             self.thisptr.at(i).y = arr[i,1]
-            self.thisptr.at(i).z = arr[i,2]
+            self.thisptr.at(i).z = 0
+            self.thisptr.at(i).data[3] = arr[i,2]
             i += 1
 
     def to_array(self):
@@ -168,7 +169,9 @@ cdef class PointCloud:
             z = self.thisptr.at(i).z
             result[i,0] = x
             result[i,1] = y
-            result[i,2] = z
+            assert z == 0
+            result[i,2] = self.thisptr.at(i).data[3]
+
             i = i + 1
         return result
 
@@ -186,7 +189,8 @@ cdef class PointCloud:
         for i,l in enumerate(_list):
             self.thisptr.at(i).x = l[0]
             self.thisptr.at(i).y = l[1]
-            self.thisptr.at(i).z = l[2]
+            self.thisptr.at(i).z = 0
+            self.thisptr.at(i).data[3] = l[2]
 
     def to_list(self):
         """

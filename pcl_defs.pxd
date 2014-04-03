@@ -25,6 +25,7 @@ cdef extern from "pcl/point_types.h" namespace "pcl":
         float x
         float y
         float z
+        float data[4]
     cdef struct Normal:
         pass
 
