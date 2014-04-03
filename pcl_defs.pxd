@@ -77,7 +77,7 @@ cdef extern from "Eigen/src/Core/util/Memory.h" namespace "Eigen":
     cdef cppclass aligned_allocator[T]:
         pass
 
-ctypedef aligned_allocator[PointXYZ] aligned_allocator_t 
+ctypedef aligned_allocator[PointXYZ] aligned_allocator_t
 ctypedef vector2[PointXYZ, aligned_allocator_t] AlignedPointTVector_t
 
 cdef extern from "pcl/octree/octree_pointcloud.h" namespace "pcl::octree":
@@ -89,7 +89,7 @@ cdef extern from "pcl/octree/octree_pointcloud.h" namespace "pcl::octree":
         void addPointsFromInputCloud()
         void deleteTree()
         bool isVoxelOccupiedAtPoint(double, double, double)
-        int getOccupiedVoxelCenters(AlignedPointTVector_t)	
+        int getOccupiedVoxelCenters(AlignedPointTVector_t)
         void deleteVoxelAtPoint(PointXYZ)
 
 ctypedef OctreePointCloud[PointXYZ] OctreePointCloud_t

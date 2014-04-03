@@ -35,7 +35,7 @@ SACMODEL_TORUS = cpp.SACMODEL_TORUS
 SACMODEL_PARALLEL_LINE = cpp.SACMODEL_PARALLEL_LINE
 SACMODEL_PERPENDICULAR_PLANE = cpp.SACMODEL_PERPENDICULAR_PLANE
 SACMODEL_PARALLEL_LINES = cpp.SACMODEL_PARALLEL_LINES
-SACMODEL_NORMAL_PLANE = cpp.SACMODEL_NORMAL_PLANE 
+SACMODEL_NORMAL_PLANE = cpp.SACMODEL_NORMAL_PLANE
 #SACMODEL_NORMAL_SPHERE = cpp.SACMODEL_NORMAL_SPHERE
 SACMODEL_REGISTRATION = cpp.SACMODEL_REGISTRATION
 SACMODEL_PARALLEL_PLANE = cpp.SACMODEL_PARALLEL_PLANE
@@ -208,7 +208,7 @@ cdef class PointCloud:
         cdef y = self.thisptr.at(row,col).y
         cdef z = self.thisptr.at(row,col).z
         return x,y,z
-        
+
     def __getitem__(self, int idx):
         cdef x = self.thisptr.at(idx).x
         cdef y = self.thisptr.at(idx).y
@@ -328,7 +328,7 @@ cdef class PointCloud:
 
     def extract(self, pyindices, bool negative=False):
         """
-        Given a list of indices of points in the pointcloud, return a 
+        Given a list of indices of points in the pointcloud, return a
         new pointcloud containing only those points.
         """
         cdef cpp.PointCloud_t *ccloud = <cpp.PointCloud_t *>self.thisptr
@@ -358,7 +358,7 @@ cdef class StatisticalOutlierRemovalFilter:
 
     def set_mean_k(self, int k):
         """
-        Set the number of points (k) to use for mean distance estimation. 
+        Set the number of points (k) to use for mean distance estimation.
         """
         self.me.setMeanK(k)
 
@@ -370,7 +370,7 @@ cdef class StatisticalOutlierRemovalFilter:
 
     def set_negative(self, bool negative):
         """
-        Set whether the indices should be returned, or all points except the indices. 
+        Set whether the indices should be returned, or all points except the indices.
         """
         self.me.setNegative(negative)
 
@@ -397,13 +397,13 @@ cdef class MovingLeastSquares:
 
     def set_search_radius(self, double radius):
         """
-        Set the sphere radius that is to be used for determining the k-nearest neighbors used for fitting. 
+        Set the sphere radius that is to be used for determining the k-nearest neighbors used for fitting.
         """
         self.me.setSearchRadius (radius)
 
     def set_polynomial_order(self, bool order):
         """
-        Set the order of the polynomial to be fit. 
+        Set the order of the polynomial to be fit.
         """
         self.me.setPolynomialOrder(order)
 
@@ -536,13 +536,13 @@ cdef class OctreePointCloud:
     Octree pointcloud
     """
     cdef cpp.OctreePointCloud_t *me
-   
+
     def __cinit__(self, double resolution):
         """
         Constructs octree pointcloud with given resolution at lowest octree level
-        """ 
+        """
         self.me = new cpp.OctreePointCloud_t(resolution)
-    
+
     def __dealloc__(self):
         del self.me
 
@@ -555,10 +555,10 @@ cdef class OctreePointCloud:
 
     def define_bounding_box(self):
         """
-        Investigate dimensions of pointcloud data set and define corresponding bounding box for octree. 
+        Investigate dimensions of pointcloud data set and define corresponding bounding box for octree.
         """
         self.me.defineBoundingBox()
-        
+
     def define_bounding_box(self, double min_x, double min_y, double min_z, double max_x, double max_y, double max_z):
         """
         Define bounding box for octree. Bounding box cannot be changed once the octree contains elements.
@@ -604,15 +604,15 @@ cdef class OctreePointCloudSearch(OctreePointCloud):
     def __cinit__(self, double resolution):
         """
         Constructs octree pointcloud with given resolution at lowest octree level
-        """ 
+        """
         self.me = <cpp.OctreePointCloud_t*> new cpp.OctreePointCloudSearch_t(resolution)
- 
+
     def __dealloc__(self):
         del self.me
-    
+
     """
     Search for all neighbors of query point that are within a given radius.
-    
+
     Returns: (k_indices, k_sqr_distances)
     """
     def radius_search (self, point, double radius, unsigned int max_nn = 0):
